@@ -1,12 +1,12 @@
 import React from 'react'
+import Profile from './Profile'
+import {  Row, Col } from "reactstrap";
 
-function DisplayFriends({ friend }) {
+function DisplayFriends(props) {
     return (
-        <div>
-            <p>{friend.name}</p>
-            <p>{friend.age}</p>
-            <p>{friend.email}</p>
-        </div>
+        <Row>
+            {props.friends.map(friend => <Profile friend={friend} key={friend.id}/>)}
+        </Row>
     )
 }
 
