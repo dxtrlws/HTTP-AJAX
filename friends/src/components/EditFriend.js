@@ -1,17 +1,18 @@
 import React from "react";
 import axios from "axios";
-import { Button, Form, FormGroup, Label, Input} from "reactstrap";
+import { Button, Form, FormGroup, Label, Input } from "reactstrap";
 
-class AddFriend extends React.Component {
+class EditFriend extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       name: "",
       age: "",
       email: "",
-      submited: false
     };
   }
+
+  
   handleChange = event => {
     this.setState({ [event.target.name]: event.target.value });
   };
@@ -22,11 +23,10 @@ class AddFriend extends React.Component {
       age: parseInt(this.state.age),
       email: this.state.email
     };
-
     axios
-      .post("http://localhost:5000/friends", friend)
+      .put(`http://localhost:5000/friends/${this.props.match.params.id}`, friend)
       .then(res => {
-        this.props.updateFriends(res.data);
+        this.props.updateFriends(friend);
         this.props.history.push("/");
       })
       .catch(err => {
@@ -35,7 +35,6 @@ class AddFriend extends React.Component {
   };
 
   render() {
-    //    if(this.state.submited === true) return <Redirect to="/" />
     return (
       <Form onSubmit={this.submitFriend}>
         <FormGroup>
@@ -70,4 +69,4 @@ class AddFriend extends React.Component {
   }
 }
 
-export default AddFriend;
+export default EditFriend;

@@ -1,9 +1,8 @@
 import React from "react";
 import Profile from "./Profile";
-import { Row, Col } from "reactstrap";
+import { Row } from "reactstrap";
 
 function DisplayFriends(props) {
-    console.log(props)
   return (
     <Row>
       {props.friends.map(friend => (
@@ -11,6 +10,9 @@ function DisplayFriends(props) {
           friend={friend}
           key={friend.id}
           updateFriends={props.updateFriends}
+          history={props.history}
+          location={props.location}
+          params={props.params}
         />
       ))}
     </Row>

@@ -4,8 +4,9 @@ import { Route, NavLink } from "react-router-dom";
 
 import DisplayFriends from "./components/DisplayFriends";
 import AddFriend from "./components/AddFriend";
+import EditFriend from "./components/EditFriend";
 import "./components/styles.css";
-import { Container, Navbar, Nav, NavItem, NavbarBrand } from "reactstrap";
+import { Container, Navbar, Nav, NavItem } from "reactstrap";
 
 class App extends Component {
   constructor() {
@@ -26,7 +27,8 @@ class App extends Component {
   };
 
   updateFriends = friend => {
-    this.setState({ firends: friend})
+    this.setState({ friends: friend });
+    
   };
 
   render() {
@@ -54,7 +56,19 @@ class App extends Component {
         />
         <Route
           path="/add"
-          render={props => <AddFriend {...props} updateFriends={this.updateFriends} />}
+          render={props => (
+            <AddFriend {...props} updateFriends={this.updateFriends} />
+          )}
+        />
+        <Route
+          path="/edit/:id"
+          render={props => (
+            <EditFriend
+              {...props}
+              updateFriends={this.updateFriends}
+              friends={this.state.friends}
+            />
+          )}
         />
       </Container>
     );

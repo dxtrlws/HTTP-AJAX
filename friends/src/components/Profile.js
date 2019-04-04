@@ -1,5 +1,8 @@
 import React from "react";
 import axios from "axios";
+import EditFriend from './EditFriend'
+import {Route} from 'react-router-dom'
+
 import * as S from "./styles";
 
 function Profile(props) {
@@ -13,7 +16,12 @@ function Profile(props) {
         console.log(err);
       });
   }
+  function routeHandler(){
+      
+    props.history.push(`/edit/${props.friend.id}`)
+  }
   return (
+      <div>
     <S.Card>
       <S.CardHeader>
         <S.CardProfile>
@@ -21,7 +29,7 @@ function Profile(props) {
           <h4>{props.friend.name}</h4>
         </S.CardProfile>
         <S.CardEditor>
-          <i className="fas fa-pen" />
+          <i onClick={routeHandler} className="fas fa-pen" />
           <i onClick={removeHandler} className="fas fa-trash" />
         </S.CardEditor>
       </S.CardHeader>
@@ -32,7 +40,10 @@ function Profile(props) {
       <S.CardText>
         <i className="fas fa-envelope" /> {props.friend.email}
       </S.CardText>
+      
     </S.Card>
+    <Route path="/edit/:id" render={props => <EditFriend {...props} />} />
+    </div>
   );
 }
 
