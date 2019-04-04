@@ -16,8 +16,7 @@ function Profile(props) {
         console.log(err);
       });
   }
-  function routeHandler(){
-      
+  function routeHandler(){  
     props.history.push(`/edit/${props.friend.id}`)
   }
   return (

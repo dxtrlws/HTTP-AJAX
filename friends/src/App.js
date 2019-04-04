@@ -15,6 +15,8 @@ class App extends Component {
       friends: []
     };
   }
+
+  // Mounts and sets initial state from server
   componentDidMount = () => {
     axios
       .get("http://localhost:5000/friends")
@@ -26,9 +28,9 @@ class App extends Component {
       });
   };
 
+  // Update state from CRUD operations
   updateFriends = friend => {
     this.setState({ friends: friend });
-    
   };
 
   render() {

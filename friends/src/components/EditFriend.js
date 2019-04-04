@@ -8,25 +8,53 @@ class EditFriend extends React.Component {
     this.state = {
       name: "",
       age: "",
-      email: "",
+      email: ""
     };
   }
-
-  
+  //  Handler to capture the text input and assign it to state
   handleChange = event => {
     this.setState({ [event.target.name]: event.target.value });
   };
+
+  componentDidMount = () => {
+    axios
+      .get("http://localhost:5000/friends")
+      .then(res => {
+        // Find find friend where id in params matches the id from database
+        const friend = res.data.find(
+          friend => friend.id === parseInt(this.props.match.params.id)
+        );
+        // Set state with new friend object
+        this.setState({
+          name: friend.name,
+          age: friend.age,
+          email: friend.email
+        });
+      })
+      .catch(err => {
+        console.log(err);
+      });
+  };
+
+  // Submit form handler
   submitFriend = event => {
     event.preventDefault();
+    // Build new friend object from state
     const friend = {
       name: this.state.name,
       age: parseInt(this.state.age),
       email: this.state.email
     };
+    // Make post request to server with new friend object
     axios
-      .put(`http://localhost:5000/friends/${this.props.match.params.id}`, friend)
+      .put(
+        `http://localhost:5000/friends/${this.props.match.params.id}`,
+        friend
+      )
       .then(res => {
-        this.props.updateFriends(friend);
+        // Pass the response backup to update parent state
+        this.props.updateFriends(res.data);
+        // Direct user to homepage
         this.props.history.push("/");
       })
       .catch(err => {
