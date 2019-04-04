@@ -1,13 +1,20 @@
-import React from 'react'
-import Profile from './Profile'
-import {  Row, Col } from "reactstrap";
+import React from "react";
+import Profile from "./Profile";
+import { Row, Col } from "reactstrap";
 
 function DisplayFriends(props) {
-    return (
-        <Row>
-            {props.friends.map(friend => <Profile friend={friend} key={friend.id}/>)}
-        </Row>
-    )
+    console.log(props)
+  return (
+    <Row>
+      {props.friends.map(friend => (
+        <Profile
+          friend={friend}
+          key={friend.id}
+          updateFriends={props.updateFriends}
+        />
+      ))}
+    </Row>
+  );
 }
 
-export default DisplayFriends
+export default DisplayFriends;

@@ -1,21 +1,38 @@
 import React from "react";
+import axios from "axios";
+import * as S from "./styles";
 
-import { Col, Card, CardText, CardBody, Button, CardFooter } from "reactstrap";
-
-function Profile({ friend }) {
+function Profile(props) {
+  function removeHandler() {
+    axios
+      .delete(`http://localhost:5000/friends/${props.friend.id}`)
+      .then(res => {
+        props.updateFriends(res.data);
+      })
+      .catch(err => {
+        console.log(err);
+      });
+  }
   return (
-    <Col xs="4">
-      <Card className="spacing">
-        <CardBody>
-          <CardText>{friend.name}</CardText>
-          <CardText>{friend.age}</CardText>
-          <CardText>{friend.email}</CardText>
-        </CardBody>
-        <CardFooter>
-          <Button>Remove</Button>
-        </CardFooter>
-      </Card>
-    </Col>
+    <S.Card>
+      <S.CardHeader>
+        <S.CardProfile>
+          <i className="fas fa-user-circle" />
+          <h4>{props.friend.name}</h4>
+        </S.CardProfile>
+        <S.CardEditor>
+          <i className="fas fa-pen" />
+          <i onClick={removeHandler} className="fas fa-trash" />
+        </S.CardEditor>
+      </S.CardHeader>
+      <hr />
+      <S.CardText>
+        <i className="fas fa-birthday-cake" /> {props.friend.age}
+      </S.CardText>
+      <S.CardText>
+        <i className="fas fa-envelope" /> {props.friend.email}
+      </S.CardText>
+    </S.Card>
   );
 }
 

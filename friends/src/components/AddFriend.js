@@ -1,5 +1,5 @@
 import React from "react";
-import { Redirect } from "react-router-dom";
+import axios from "axios";
 import { Button, Form, FormGroup, Label, Input, FormText } from "reactstrap";
 
 class AddFriend extends React.Component {
@@ -22,13 +22,22 @@ class AddFriend extends React.Component {
       age: parseInt(this.state.age),
       email: this.state.email
     };
-    this.props.addFriend(friend);
-    this.setState({ name: "", age: 0, email: "", submited: true });
-    
+    // this.setState({ name: "", age: 0, email: "", submited: true });
+
+    axios
+      .post("http://localhost:5000/friends", friend)
+      .then(res => {
+        console.log(res);
+        this.props.updateFriends(friend);
+        this.props.history.push("/");
+      })
+      .catch(err => {
+        console.log(err);
+      });
   };
 
   render() {
-   if(this.state.submited === true) return <Redirect to="/" />
+    //    if(this.state.submited === true) return <Redirect to="/" />
     return (
       <Form onSubmit={this.submitFriend}>
         <FormGroup>
