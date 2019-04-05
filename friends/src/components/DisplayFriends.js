@@ -1,10 +1,10 @@
 import React from "react";
 import Profile from "./Profile";
-import { Row } from "reactstrap";
+import Grid from '@material-ui/core/Grid'
 
 function DisplayFriends(props) {
   return (
-    <Row>
+    <Grid container>  
       {props.friends.map(friend => (
         <Profile
           friend={friend}
@@ -14,8 +14,8 @@ function DisplayFriends(props) {
           location={props.location}
           params={props.params}
         />
-      ))}
-    </Row>
+        ))}   
+    </Grid>
   );
 }
 

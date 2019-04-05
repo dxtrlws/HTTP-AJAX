@@ -2,6 +2,7 @@ import React from "react";
 import axios from "axios";
 import EditFriend from './EditFriend'
 import {Route} from 'react-router-dom'
+import Grid from '@material-ui/core/Grid'
 
 import * as S from "./styles";
 
@@ -20,7 +21,7 @@ function Profile(props) {
     props.history.push(`/edit/${props.friend.id}`)
   }
   return (
-      <div>
+    <Grid item xs={12} lg={4}>
     <S.Card>
       <S.CardHeader>
         <S.CardProfile>
@@ -42,7 +43,7 @@ function Profile(props) {
       
     </S.Card>
     <Route path="/edit/:id" render={props => <EditFriend {...props} />} />
-    </div>
+    </Grid>
   );
 }
 
